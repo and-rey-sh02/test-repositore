@@ -1,1 +1,51 @@
-
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Andriy",
+            "sirname": "Moskalenko",
+            "photo_url": "https://raw.githubusercontent.com/blacksempai/martplace/master/img/photo.png",
+            "balance": 1500
+        },
+        {
+            "id": 2,
+            "name": "Yuriy",
+            "sirname": "Berezovchuk",
+            "photo_url": "https://raw.githubusercontent.com/blacksempai/martplace/master/img/photo.png",
+            "balance": 5790
+        },
+        {
+            "id": 3,
+            "name": "Cat",
+            "sirname": "Egyptian",
+            "photo_url": "https://raw.githubusercontent.com/blacksempai/martplace/master/img/photo.png",
+            "balance": 0
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "name": "LED display",
+            "description": "Can display 2-lines X 16-characters. Operate with 5V DC.",
+            "price": 92,
+            "author_id": 1,
+            "photo_url": "https://raw.githubusercontent.com/blacksempai/martplace/master/img/led.jpeg"
+        },
+        {
+            "id": 2,
+            "name": "Arduino UNO",
+            "description": "Brand new and high quality.",
+            "price": 180,
+            "author_id": 3,
+            "photo_url": "https://raw.githubusercontent.com/blacksempai/martplace/master/img/arduino.jpeg"
+        },
+        {
+            "id": 3,
+            "name": "ESP8266 5V",
+            "description": "This wireless relay is based on the AI-Thinker ESP-01S WIFI module.",
+            "price": 300,
+            "author_id": 2,
+            "photo_url": "https://raw.githubusercontent.com/blacksempai/martplace/master/img/wifi.jpeg"
+        }
+    ]
+}
