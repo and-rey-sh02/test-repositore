@@ -25,7 +25,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     userRequest.send();
     
+    let productsRequest = new XMLHttpRequest();
 
+    productsRequest.open('GET',`${url}/products?author_id=${id}`);
+    productsRequest.responseType = 'json'
+    productsRequest.onload = function() { 
+        let products = productsRequest.response;
+        productsGrid.innerHTML = null;
+        products.forEach(p => {
+            productsGrid.innerHTML += `
+                <div class="product">
+                    <h2 class='product-name'>${p.name}</h2>
+                    <img class='product-photo' src='${p.photo_url}' alt='${p.name}'>
+                    <p class='product-price'><b>Price: </b>${p.price}$</p>
+                    <p class='product-description'><b>Description: </b>${p.description}</p>
+                </div>
+            `;
+        });
+    }
+    
+    productsRequest.send();
 
 
 

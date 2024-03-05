@@ -1,25 +1,25 @@
- * {
+* {
     margin: 0;
     padding: 0;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
- }
+}
 
- main, header {
+main, header {
     margin: 5vh 10vw;
- }
+}
 
- header {
+header {
     display: flex;
     justify-content: space-between;
- }
+}
 
- #products-grid {
+#products-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
- }
+}
 
- .product {
+.product {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 1rem;
     border-radius: 1rem;
@@ -51,12 +51,14 @@ button {
     min-width: 50%;
 }
 
+/* -----Cart----- */
+
 #cart-button {
     background: none;
     border: none;
     border-radius: 50%;
-    padding: 5px; 
-    border: 1px solid #000;
+    padding: 5px;
+    border: 1px solid #000000;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -76,6 +78,52 @@ button {
 #cart-button:hover {
     background-color: rgb(170, 170, 255);
 }
+
+#cart-button.active {
+    background-color: rgb(170, 255, 170);
+}
+
+#cart-products::before {
+    content: '';
+    border: transparent solid 16px;
+    border-bottom: solid #000 16px;
+    position: relative;
+    top: -2.7rem;
+    left: 15.8rem;
+    z-index: -1;
+}
+
+#cart-products {
+    border: 1px solid #000;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    top: 59px;
+    right: 0rem;
+    left: -16rem;
+    position: absolute;
+    padding: 10px;
+    text-align: left;
+}
+
+.hide { 
+    display: none; 
+}
+
+#cart-products p {
+    line-height: 2rem;
+}
+
+#cart-products p img {
+    max-height: 2rem;
+    max-width: 2rem;
+}
+
+#cart-products button {
+    border: 1px solid #000;
+    margin: 0.5rem 0;
+}
+
+/* -----Profile Page----- */
 
 .profile-container {
     display: flex;
@@ -112,7 +160,28 @@ button {
     transform: scale(1.2);
 }
 
+.user-products {
+    position: relative;
+}
 
+.user-products h1 {
+    position: absolute;
+    left: 2rem;
+    top: -1.2rem;
+    color: #ffffff;
+    text-shadow: 0 0 10px #000000;
+}
+
+#user-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: tomato;
+    padding: 2rem;
+    gap: 1rem;
+    border-radius: 1rem;
+}
+
+/* -----Responsive----- */
 
 @media screen and (max-width: 1000px){
     #products-grid, #user-products-grid {
