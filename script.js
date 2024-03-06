@@ -59,6 +59,7 @@ function addProductToCart(id) {
     },500);
 }
 
+
 function drawCartProducts() {
     if(cart.length === 0) return cartProd.innerHTML = 'Cart is empty';
     cartProd.innerHTML = null;
@@ -68,7 +69,6 @@ function drawCartProducts() {
             <p><img src="${p.photo_url}"> ${p.name} |${p.price}$</p>
             <hr>
         `;
-        console.log(p.photo_url);
         sum += +p.price;
     });
     cartProd.innerHTML += `
@@ -127,17 +127,29 @@ cart_button.addEventListener('click', function() {
     openCart();
 });
 
+document.getElementById('order-form').addEventListener('submit', function(e) {
+    e.preventDefault();//
+    let data = JSON.stringify({
+        "name": e.target['name'].value,
+        "address": e.target['address'].value,
+        "phone": e.target['phone'].value,
+        "post_number": e.target['post_number'].value,
+        "status": "New",
+        "products": localStorage.getItem('cart')
+      });
 
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url + "/orders");
+      xhr.setRequestHeader("content-type", "application/json");
+      xhr.setRequestHeader("x-apikey", "65e78a0ad34bb021b08cb4a5");
+      xhr.setRequestHeader("cache-control", "no-cache");
+      xhr.send(data);
 
-
-
-
-
-
-
-
-
-
+      modal.style.display = "none";
+      cart = [];
+      cartProd.innerHTML = 'Money was withdrawn from your credit card';
+      localStorage.setItem("cart", '[]');
+})
 
 
 });
