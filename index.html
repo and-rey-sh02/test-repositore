@@ -23,6 +23,21 @@
 
         </div>
    </main>
+   <div id="myModal" class="modal">
+    <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="order-block">   
+    </div>
+    <form id="order-form">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="text" name="address" placeholder="Delivery Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        <input type="number" name="post_number" placeholder="Post Office Number" required>
+        <h2>Total Price: <span id="price"></span></h2>
+        <input type="submit" value="Order">
+    </form>
+    </div>
+</div>
 </body>
 <script src="script.js" defer></script>
 </html>

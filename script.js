@@ -3,11 +3,16 @@ document.addEventListener('DOMContentLoaded', function() {
 let productsGrid = document.getElementById('products-grid');
 let productsArray = [];
 let xhr = new XMLHttpRequest();
-let url = "https://my-json-server.typicode.com/and-rey-sh02/test-repositore";
+let url = "https://market2-b5db.restdb.io/rest";
 
 xhr.open('GET', url+'/products');
+xhr.setRequestHeader("content-type", "application/json");
+xhr.setRequestHeader("x-apikey", "65e78a0ad34bb021b08cb4a5");
+xhr.setRequestHeader("cache-control", "no-cache");
+
+xhr.responseType = 'json';
 xhr.onload = function() {
-    productsArray = JSON.parse(xhr.response);
+    productsArray = xhr.response;
     productsGrid.innerHTML = null;
     productsArray.forEach(p => {
         productsArray.push(p);
@@ -19,37 +24,20 @@ xhr.onload = function() {
             <p class='product-price'><b>Price: </b>${p.price}$</p>
             <p class='product-description'><b>Description: </b>${p.description}</p>
             <a href='userProfile.html?id=${p.author_id}'>Seller profile</a>
-            <button id="btn_buy_${p.id}">Buy</button>
+            <button id="btn_buy_${p._id}">Buy</button>
         `;
-        let btn_buy = pElem.querySelector(`#btn_buy_${p.id}`);
+        
+        let btn_buy = pElem.querySelector(`#btn_buy_${p._id}`);
             btn_buy.addEventListener('click', function () {
-                addProductToCart(p.id);
+                addProductToCart(p._id);
             });
         productsGrid.append(pElem);
     });
 }
+
 xhr.send();
 
-function addProductToCart(id) {
-    xhr.open('GET',`${url}/products/${id}`);
-    xhr.responseType = 'json'
-    xhr.onload = function() {
-
-    }
-}
-
-
 let cartProd = document.getElementById('cart-products');
-
-let cart_button = document.querySelector("#cart-button");
-
-function openCart() {
-    cartProd.classList.toggle('hide');
-}
-
-cart_button.addEventListener('click', function() {
-    openCart();
-});
 
 let cart = [];
 if(localStorage.getItem('cart')) {
@@ -57,10 +45,9 @@ if(localStorage.getItem('cart')) {
     drawCartProducts();
 }
 
-
 function addProductToCart(id) {
     let product = productsArray.find(function(p) {
-        return p.id == id;
+        return p._id == id;
     })
     cart.push(product);
     drawCartProducts();
@@ -72,7 +59,6 @@ function addProductToCart(id) {
     },500);
 }
 
-
 function drawCartProducts() {
     if(cart.length === 0) return cartProd.innerHTML = 'Cart is empty';
     cartProd.innerHTML = null;
@@ -82,7 +68,8 @@ function drawCartProducts() {
             <p><img src="${p.photo_url}"> ${p.name} |${p.price}$</p>
             <hr>
         `;
-        sum += p.price;
+        console.log(p.photo_url);
+        sum += +p.price;
     });
     cartProd.innerHTML += `
         <p>Total Price: ${sum}$</p>
@@ -90,19 +77,66 @@ function drawCartProducts() {
     `;
 }
 
-let btn_buy_all = document.querySelector("#btn_buy_all");
+let orderBlock = document.getElementById('order-block');
+let modal = document.getElementById('myModal');
+let span = document.getElementsByClassName('close')[0];
 
-if (btn_buy_all) {
-    btn_buy_all.addEventListener('click', function() {
-        buyAll();
-    });
+span.onclick = function() {
+    modal.style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+
+  let btn_buy_all = document.querySelector("#btn_buy_all");
+
+  if (btn_buy_all) {
+      btn_buy_all.addEventListener('click', function() {
+          buyAll();
+      });
+  }
+  
+  function buyAll() {
+      modal.style.display = "block";
+      let sum = 0;
+      orderBlock.innerHTML = null;
+  
+      cart.forEach(function(p){
+          orderBlock.innerHTML += `
+              <div class="item">
+                  <img width="100px" src="${p.photo_url}"> 
+                  <h2>${p.name} | ${p.price}$</h2>
+              </div>
+          `;
+          sum += +p.price;
+      });
+      document.getElementById('price').innerHTML = sum + '$';
+  
+  }
+
+let cart_button = document.querySelector("#cart-button");
+
+function openCart() {
+    cartProd.classList.toggle('hide');
 }
 
-function buyAll() {
-    cart = [];
-    cartProd.innerHTML = 'Money was withdrawn from your credit card';
-    localStorage.setItem("cart", '[]');
-}
+cart_button.addEventListener('click', function() {
+    openCart();
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 
